@@ -18,3 +18,12 @@ export async function addTodo(newTodo: {
     console.log(error)
   }
 }
+
+export async function deleteTodo(id: number) {
+    try {
+    await db('todos').where({ id }).del()
+  } catch (error) {
+    console.error(error)
+    console.log(error)
+  }
+}
