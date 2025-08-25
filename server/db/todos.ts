@@ -1,16 +1,18 @@
 import db from './connection'
+import { Todo, Todos } from './Models/todos'
 
-export async function getAllTodos() {
-  return db('todos').select()
+export async function getAllTodos(): Promise<Todos[]> {
+  return db('todos').select(
+    'id',
+    'task',
+    'person_name as personName',
+    'responsibilities',
+    'deadline',
+    'is_done as isDone',
+  )
 }
 
-export async function addTodo(newTodo: {
-  task: string
-  person_name: string
-  responsibilities: string
-  deadline: string
-  is_done: boolean
-}) {
+export async function addTodo(newTodo: Todos) {
   try {
     await db('todos').insert(newTodo).returning('*')
   } catch (error) {
@@ -19,8 +21,8 @@ export async function addTodo(newTodo: {
   }
 }
 
-export async function deleteTodo(id: number) {
-    try {
+export async function deleteTodoById(id: number) {
+  try {
     await db('todos').where({ id }).del()
   } catch (error) {
     console.error(error)
