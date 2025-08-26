@@ -1,18 +1,11 @@
 import db from './connection'
 import { Todos } from './Models/todos'
 
-export async function getAllTodos(): Promise<Todos[]> {
-  return db('todos').select(
-    'id',
-    'task',
-    'person_name as personName',
-    'responsibilities',
-    'deadline',
-    'is_done as isDone',
-  )
+export async function getAllTodos(){
+  return db('todos').select()
 }
 
-export async function addTodo(newTodo: Todos) {
+export async function addTodo(newTodo: Todos){
   try {
     await db('todos').insert(newTodo).returning('*')
   } catch (error) {

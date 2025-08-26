@@ -1,14 +1,30 @@
 import * as db from '../db/todos.ts'
-import { Router } from 'express'
+import express from 'express'
 
-const router = Router()
+const router = express.Router()
 
 router.get('/', async (req, res) => {
-  try{ 
+  try {
     const allTodos = await db.getAllTodos()
-    res.json({allTodos})
+    res.json({ allTodos })
+    console.log(allTodos)
   } catch (error) {
     console.error(error)
     res.status(500).send('Something went wrong here...')
   }
 })
+
+router.post('/', async (req, res) => {
+  try {
+    const newTodo = req.body
+    const thingToDo = await db.addTodo(newTodo)
+    res.json(thingToDo)
+  } catch (error) {
+    console.error(error)
+    res.status(500).send('Something went wrong here...')
+  }
+})
+
+//. delete
+
+export default router
