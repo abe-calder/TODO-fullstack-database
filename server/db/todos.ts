@@ -1,5 +1,5 @@
 import db from './connection'
-import { Todo, Todos } from './Models/todos'
+import { Todos } from './Models/todos'
 
 export async function getAllTodos(): Promise<Todos[]> {
   return db('todos').select(
