@@ -25,6 +25,14 @@ router.post('/', async (req, res) => {
   }
 })
 
-//. delete
+router.delete('/:id', async (req, res) => {
+  try {
+    const delId = Number(req.params.id)
+    await db.deleteTodoById(delId)
+    res.sendStatus(204)
+  } catch (error) {
+    console.error(error)
+  }
+})
 
 export default router

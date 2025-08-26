@@ -1,11 +1,16 @@
-import { useState } from 'react'
-import { useAddTodo, useTodos } from '../hooks/useTodos'
-function AddTodo() {
-  // const addTodo = useAddTodo()
-  const { data: todos, isPending, isError, error } = useTodos()
-  const addTodo = useAddTodo()
-  const [isChecked, setIsChecked] = useState(false)
-  const [todoState, setTodoState] = useState()
+import { useDeleteTodo, useTodos } from '../hooks/useTodos'
+
+function Todos() {
+  const { data: todos, isPending, isError } = useTodos()
+  const deleteTodo = useDeleteTodo()
+
+  const handleDelete = async (id: number) => {
+    try {
+      return await deleteTodo.mutateAsync(id)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   if (isPending) {
     return <p>Loading... Please wait</p>
@@ -13,32 +18,9 @@ function AddTodo() {
     return <p>There was an error</p>
   }
 
-  async function handleSubmit(evt) {
-    evt.preventDefault()
-
-    if (addTodo.isPending) {
-      return
-    }
-
-    const data = {
-      task: task,
-      person_name: personName,
-      responsibilities: responsibilities,
-      deadline: deadline,
-      is_done: isDone,
-    }
-
-    const newLog = await addALog.mutateAsync(data)
-    console.log('add a log', newLog)
-    setFormState(empty)
-  }
-
   return (
     <>
-      <input className="new-todo" placeholder="What needs to be done?" />
       <section className="main">
-        <input id="toggle-all" className="toggle-all" type="checkbox" />
-        <label htmlFor="toggle-all">Mark all as complete</label>
         <ul className="todo-list">
           <div>
             <table className="table">
@@ -57,6 +39,7 @@ function AddTodo() {
               <td style={{ fontWeight: '600' }}>
                 <strong>Deadline:</strong>
               </td>
+              <td>Delete</td>
               {todos.map((todo) => {
                 return (
                   <tr key={todo.id}>
@@ -67,6 +50,9 @@ function AddTodo() {
                     <td>{todo.person_name}</td>
                     <td>{todo.responsibilities}</td>
                     <td>{todo.deadline}</td>
+                    <td>
+                      <button onClick={() => handleDelete(todo.id)}>X</button>
+                    </td>
                   </tr>
                 )
               })}
@@ -78,4 +64,4 @@ function AddTodo() {
   )
 }
 
-export default AddTodo
+export default Todos

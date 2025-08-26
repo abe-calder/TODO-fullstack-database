@@ -14,8 +14,8 @@ export function useTodos() {
   }
 }
 
-export function useTodosMutation (
-  mutationFn: MutationFunction,
+export function useTodosMutation<TData = unknown, TVariables = unknown> (
+  mutationFn: MutationFunction<TData, TVariables>,
 ) {
   const queryClient = useQueryClient()
   const mutation = useMutation({
