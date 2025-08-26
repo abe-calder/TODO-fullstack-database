@@ -21,7 +21,16 @@ export function useTodosMutation (
   const mutation = useMutation({
     mutationFn,
     onSuccess: () => {
-      queryClient
+      queryClient.invalidateQueries({ queryKey: ['todos'] })
     }
   })
+  return mutation
+}
+
+export function useAddTodo() {
+  return useTodosMutation(addTodo)
+}
+
+export function useDeleteTodo() {
+  return useTodosMutation(deleteTodo)
 }
