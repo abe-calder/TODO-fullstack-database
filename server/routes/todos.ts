@@ -38,7 +38,7 @@ router.put('/:id', async (req, res) => {
   try {
     const updateId = Number(req.params.id)
     const checked = req.body.checked
-    const updateTodo = await db.updateTodoCheckbox(checked, updateId)
+    const updateTodo = await db.updateTodoCheckbox(updateId, checked)
     res.status(200).json({is_done: updateTodo})
   } catch (error) {
     console.error(error)

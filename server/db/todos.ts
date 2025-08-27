@@ -2,7 +2,7 @@ import db from './connection'
 import { Todos } from './Models/todos'
 
 export async function getAllTodos() {
-  return db('todos').select('task as task', 'person_name as personName', 'responsibilities as responsibilities', 'person_name as personName', 'deadline as deadline', 'is_done as isDone')
+  return db('todos').select('id as id', 'task as task', 'person_name as personName', 'responsibilities as responsibilities', 'deadline as deadline', 'is_done as isDone')
 }
 
 export async function addTodo(newTodo: Todos) {
@@ -31,7 +31,7 @@ export async function deleteTodoById(id: number) {
   }
 }
 
-export async function updateTodoCheckbox(checked: boolean, id: number) {
+export async function updateTodoCheckbox( id: number, checked: boolean) {
   try {
     await db('todos').where({id}).update({is_done: checked}).returning(['*'])
   } catch (error) {
