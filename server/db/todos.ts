@@ -2,7 +2,7 @@ import db from './connection'
 import { Todos } from './Models/todos'
 
 export async function getAllTodos() {
-  return db('todos').select('id as id', 'task as task', 'person_name as personName', 'responsibilities as responsibilities', 'deadline as deadline', 'is_done as isDone')
+  return db('todos').select('id as id', 'task as task', 'person_name as personName', 'responsibilities as responsibilities', 'deadline as deadline', 'is_done as isDone').orderBy('id')
 }
 
 export async function addTodo(newTodo: Todos) {
