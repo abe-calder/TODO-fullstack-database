@@ -5,7 +5,8 @@ import {
   MutationFunction
 } from '@tanstack/react-query'
 
-import { getTodos, addTodo, deleteTodo } from '../apis/todos'
+import { getTodos, addTodo, deleteTodo, updateTodo } from '../apis/todos'
+
 
 export function useTodos() {
   const query = useQuery({ queryKey: ['todos'], queryFn: getTodos })
@@ -33,4 +34,8 @@ export function useAddTodo() {
 
 export function useDeleteTodo() {
   return useTodosMutation(deleteTodo)
+}
+
+export function useUpdateTodo() {
+  return useTodosMutation(updateTodo)
 }
