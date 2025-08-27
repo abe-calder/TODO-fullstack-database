@@ -15,9 +15,9 @@ function Todos() {
     }
   }
 
-  if (updateTodo.isPending) {
-    return
-  }
+  // if (updateTodo.isPending) {
+  //   return
+  // }
 
   if (isPending) {
     return <p>Loading... Please wait</p>
